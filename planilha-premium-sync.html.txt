@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Planilha Premium PRO</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0f172a;
+  --bg-secondary: #1e293b;
+  --text: #e2e8f0;
+  --border: #334155;
+  --accent: #38bdf8;
+  --hover: #334155;
+}
+
+.light {
+  --bg: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text: #0f172a;
+  --border: #cbd5e1;
+  --accent: #0284c7;
+  --hover: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: Inter, Arial, sans-serif;
+  color: var(--text);
+  padding: 20px;
+}
+
+/* LOGIN */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#login-box {
+  background: #020617dd;
+  border: 1px solid #1e293b;
+  padding: 24px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 18px 45px rgba(15,23,42,0.85);
+}
+
+#login-box h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#login-box input {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e2e8f0;
+}
+
+#login-box button {
+  width: 100%;
+}
+
+/* HEADER & CONTROLS */
+
+h1 {
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+
+.top-controls, .second-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+input, select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 13px;
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+.btn {
+  background: var(--accent);
+  color: #000;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.small-btn {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+/* LAYOUT PRINCIPAL */
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* GRID: DASHBOARD + TABELA */
+#layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  #layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* DASHBOARD */
+#dashboard {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.dashboard-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #cbd5f5;
+}
+
+.dashboard-section {
+  margin-bottom: 12px;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.chart-label {
+  width: 80px;
+}
+
+.chart-track {
+  flex: 1;
+  background: #0f172a;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.chart-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* TABELA */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background: var(--bg);
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+tr:hover {
+  background: var(--hover);
+}
+
+td[contenteditable] {
+  border-radius: 6px;
+}
+
+td[contenteditable]:focus {
+  outline: 2px solid var(--accent);
+}
+
+/* FOTO */
+.photo-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+/* BOTÕES DE AÇÃO */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* BADGES DE STATUS */
+.badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-Ativa { background: #10b98133; color: #10b981; }
+.status-Suspensa { background: #f59e0b33; color: #f59e0b; }
+.status-Banida { background: #ef444433; color: #ef4444; }
+.status-Verificar { background: #3b82f633; color: #3b82f6; }
+
+/* SENHA MÁSCARA */
+.senha-celula.mascara {
+  filter: blur(4px);
+}
+
+/* FOOTER BOTÕES */
+.footer-buttons {
+  margin-top: 12px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SIMPLES (senha padrão: admin123) -->
+<div id="login-screen">
+  <div id="login-box">
+    <h2>Login</h2>
+    <p style="font-size:12px;color:#9ca3af;margin:0 0 8px;">
+      Senha padrão: <b>admin123</b> (apenas proteção leve, não é segurança real).
+    </p>
+    <input id="login-password" type="password" placeholder="Digite a senha...">
+    <button class="btn" onclick="fazerLogin()">Entrar</button>
+    <p id="login-erro" style="color:#f97373;font-size:12px;display:none;margin-top:8px;">
+      Senha incorreta.
+    </p>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+  <h1>Planilha Premium PRO</h1>
+  <div class="subtitle">Controle local de contas com visual moderno – sem instalação, tudo em 1 arquivo.</div>
+
+  <div class="top-controls">
+    <input id="busca" type="text" placeholder="Buscar..." oninput="filtrar()">
+    <select id="filtroStatus" onchange="filtrar()">
+      <option value="">Status</option>
+      <option>Ativa</option>
+      <option>Suspensa</option>
+      <option>Banida</option>
+      <option>Verificar</option>
+    </select>
+    <select id="filtroPais" onchange="filtrar()">
+      <option value="">País</option>
+    </select>
+    <button class="btn small-btn" onclick="alternarTema()">🌓 Tema</button>
+    <button class="btn small-btn" onclick="alternarIdioma()">🌐 Idioma</button>
+    <button class="btn small-btn" onclick="alternarMascaraSenhas()">👁 Senhas</button>
+  </div>
+
+  <div id="layout">
+    <!-- DASHBOARD LATERAL -->
+    <div id="dashboard">
+      <div class="dashboard-title" id="labelDashboard">Dashboard</div>
+      <div class="dashboard-section">
+        <div style="font-weight:600;font-size:12px;margin-bottom:4px;" id="labelStatusChart">
+          Por Status
+        </div>
+        <div id="chartStatus"></div>
+      </div>
+      <div class="dashboard-section">
+        <div style="font-weight:600;font-size:12px;margin-bottom:4px;" id="labelCountryChart">
+          Por País
+        </div>
+        <div id="chartCountry"></div>
+      </div>
+    </div>
+
+    <!-- TABELA -->
+    <div>
+      <table id="planilha">
+        <thead>
+          <tr>
+            <th id="thEmail">Email</th>
+            <th id="thSenha">Senha</th>
+            <th id="thTikTok">@TikTok</th>
+            <th id="thPais">País</th>
+            <th id="thStatus">Status</th>
+            <th id="thData">Criado em</th>
+            <th id="thAdmin">Admin</th>
+            <th id="thTags">Tags</th>
+            <th id="thFoto">Foto</th>
+            <th id="thAcao">Ação</th>
+          </tr>
+        </thead>
+        <tbody id="linhas"></tbody>
+      </table>
+
+      <div class="footer-buttons">
+        <button class="btn" onclick="adicionarLinha()">➕ Adicionar Linha</button>
+        <button class="btn" onclick="exportarExcel()">⬆️ Exportar Excel</button>
+        <button class="btn" onclick="document.getElementById('arquivo').click()">⬇️ Importar Excel/CSV</button>
+        <button class="btn" onclick="exportarBackup()">📥 Backup (.json)</button>
+        <button class="btn" onclick="document.getElementById('backupFile').click()">📤 Restaurar Backup</button>
+      </div>
+
+      <input id="arquivo" type="file" accept=".csv,.xlsx" style="display:none" onchange="importarArquivo(event)">
+      <input id="backupFile" type="file" accept=".json" style="display:none" onchange="importarBackup(event)">
+    </div>
+  </div>
+</div>
+
+<!-- XLSX LIB -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+/* ========== LOGIN SIMPLES ========== */
+
+function fazerLogin() {
+  const senha = document.getElementById("login-password").value;
+  const erro = document.getElementById("login-erro");
+
+  if (senha === "admin123") {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    localStorage.setItem("planilhaPRO_logged", "1");
+  } else {
+    erro.style.display = "block";
+  }
+}
+
+window.addEventListener("load", () => {
+  const logged = localStorage.getItem("planilhaPRO_logged");
+  if (logged === "1") {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }
+});
+
+/* ========== IDIOMA ========== */
+
+let idioma = "pt";
+
+const textos = {
+  pt: {
+    dashboard: "Dashboard",
+    porStatus: "Por Status",
+    porPais: "Por País",
+    email: "Email",
+    senha: "Senha",
+    tikTok: "@TikTok",
+    pais: "País",
+    status: "Status",
+    criadoEm: "Criado em",
+    admin: "Admin",
+    tags: "Tags",
+    foto: "Foto",
+    acao: "Ação",
+    buscar: "Buscar..."
+  },
+  en: {
+    dashboard: "Dashboard",
+    porStatus: "By Status",
+    porPais: "By Country",
+    email: "Email",
+    senha: "Password",
+    tikTok: "@TikTok",
+    pais: "Country",
+    status: "Status",
+    criadoEm: "Created at",
+    admin: "Admin",
+    tags: "Tags",
+    foto: "Photo",
+    acao: "Action",
+    buscar: "Search..."
+  }
+};
+
+function aplicarIdioma() {
+  const t = textos[idioma];
+  document.getElementById("labelDashboard").innerText = t.dashboard;
+  document.getElementById("labelStatusChart").innerText = t.porStatus;
+  document.getElementById("labelCountryChart").innerText = t.porPais;
+  document.getElementById("thEmail").innerText = t.email;
+  document.getElementById("thSenha").innerText = t.senha;
+  document.getElementById("thTikTok").innerText = t.tikTok;
+  document.getElementById("thPais").innerText = t.pais;
+  document.getElementById("thStatus").innerText = t.status;
+  document.getElementById("thData").innerText = t.criadoEm;
+  document.getElementById("thAdmin").innerText = t.admin;
+  document.getElementById("thTags").innerText = t.tags;
+  document.getElementById("thFoto").innerText = t.foto;
+  document.getElementById("thAcao").innerText = t.acao;
+  document.getElementById("busca").placeholder = t.buscar;
+}
+
+function alternarIdioma() {
+  idioma = idioma === "pt" ? "en" : "pt";
+  aplicarIdioma();
+}
+
+/* ========== TEMA ========== */
+
+function alternarTema() {
+  document.body.classList.toggle("light");
+  atualizarDashboard();
+}
+
+/* ========== SALVAR / CARREGAR ========== */
+
+function salvar() {
+  const linhas = [];
+  document.querySelectorAll("#linhas tr").forEach(tr => {
+    const dados = [];
+    const campos = ["email","senha","tiktok","pais","status","data","admin","tags","foto"];
+    campos.forEach(campo => {
+      const td = tr.querySelector(`td[data-campo='${campo}']`);
+      if (!td) { dados.push(""); return; }
+      if (campo === "status") {
+        const select = td.querySelector("select");
+        dados.push(select ? select.value : "");
+      } else if (campo === "foto") {
+        const img = td.querySelector("img");
+        dados.push(img ? img.src : "");
+      } else {
+        dados.push(td.innerText);
+      }
+    });
+    linhas.push(dados);
+  });
+  localStorage.setItem("planilhaPRO_data", JSON.stringify(linhas));
+  atualizarDashboard();
+  gerarListaPaises();
+}
+
+function carregar() {
+  const dados = JSON.parse(localStorage.getItem("planilhaPRO_data") || "[]");
+  dados.forEach(linha => criarLinha(linha));
+  atualizarDashboard();
+}
+
+/* ========== LINHAS ========== */
+
+function criarLinha(dados = ["","","","","Ativa","","","",""]) {
+  const tbody = document.getElementById("linhas");
+  const tr = document.createElement("tr");
+
+  const campos = ["email","senha","tiktok","pais","status","data","admin","tags","foto"];
+
+  campos.forEach((campo, i) => {
+    const td = document.createElement("td");
+    td.dataset.campo = campo;
+
+    if (campo === "status") {
+      const valorStatus = dados[i] || "Ativa";
+      td.innerHTML = `
+        <select onchange="atualizarStatus(this)">
+          <option ${valorStatus==="Ativa"?"selected":""}>Ativa</option>
+          <option ${valorStatus==="Suspensa"?"selected":""}>Suspensa</option>
+          <option ${valorStatus==="Banida"?"selected":""}>Banida</option>
+          <option ${valorStatus==="Verificar"?"selected":""}>Verificar</option>
+        </select>
+        <span class="badge status-${valorStatus}">${valorStatus}</span>
+      `;
+    } else if (campo === "foto") {
+      const src = dados[i] || "";
+      td.innerHTML = `
+        <input type="file" accept="image/*" style="display:none" onchange="uploadFoto(this)">
+        <button class="btn small-btn" onclick="this.previousElementSibling.click()">📸</button>
+        <div>
+          ${src ? `<img class="photo-thumb" src="${src}">` : ""}
+        </div>
+      `;
+    } else {
+      td.contentEditable = true;
+      td.innerText = dados[i] || "";
+      td.oninput = () => { salvar(); };
+
+      if (campo === "senha") {
+        td.classList.add("senha-celula","mascara");
+      }
+    }
+
+    tr.appendChild(td);
+  });
+
+  const tdAcoes = document.createElement("td");
+  tdAcoes.innerHTML = `<button class="delete-btn" onclick="excluirLinha(this)">Excluir</button>`;
+  tr.appendChild(tdAcoes);
+
+  tbody.appendChild(tr);
+}
+
+function excluirLinha(botao) {
+  botao.closest("tr").remove();
+  salvar();
+}
+
+function adicionarLinha() {
+  criarLinha();
+  salvar();
+}
+
+/* ========== FOTO ========== */
+
+function uploadFoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const td = input.parentElement;
+    const container = td.querySelector("div");
+    container.innerHTML = `<img class="photo-thumb" src="${e.target.result}">`;
+    salvar();
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ========== STATUS BADGE ========== */
+
+function atualizarStatus(select) {
+  const td = select.parentElement;
+  const badge = td.querySelector(".badge");
+  badge.innerText = select.value;
+  badge.className = "badge status-" + select.value;
+  salvar();
+}
+
+/* ========== MÁSCARA DE SENHAS ========== */
+
+let mascaraAtiva = true;
+function alternarMascaraSenhas() {
+  mascaraAtiva = !mascaraAtiva;
+  document.querySelectorAll(".senha-celula").forEach(td => {
+    if (mascaraAtiva) td.classList.add("mascara");
+    else td.classList.remove("mascara");
+  });
+}
+
+/* ========== FILTROS / BUSCA ========== */
+
+function filtrar() {
+  const busca = document.getElementById("busca").value.toLowerCase();
+  const filtroStatus = document.getElementById("filtroStatus").value;
+  const filtroPais = document.getElementById("filtroPais").value;
+
+  document.querySelectorAll("#linhas tr").forEach(tr => {
+    const texto = tr.innerText.toLowerCase();
+    const status = tr.querySelector("td[data-campo='status'] select").value;
+    const pais = tr.querySelector("td[data-campo='pais']").innerText.trim();
+
+    let mostrar = true;
+    if (busca && !texto.includes(busca)) mostrar = false;
+    if (filtroStatus && filtroStatus !== status) mostrar = false;
+    if (filtroPais && filtroPais !== pais) mostrar = false;
+
+    tr.style.display = mostrar ? "" : "none";
+  });
+}
+
+function gerarListaPaises() {
+  const paises = new Set();
+  document.querySelectorAll("td[data-campo='pais']").forEach(td => {
+    const val = td.innerText.trim();
+    if (val) paises.add(val);
+  });
+  const select = document.getElementById("filtroPais");
+  const valorAtual = select.value;
+  select.innerHTML = `<option value="">País</option>`;
+  paises.forEach(p => {
+    select.innerHTML += `<option ${p===valorAtual?"selected":""}>${p}</option>`;
+  });
+}
+
+/* ========== DASHBOARD ========== */
+
+function atualizarDashboard() {
+  const statusCounts = {};
+  const paisCounts = {};
+
+  document.querySelectorAll("#linhas tr").forEach(tr => {
+    const status = tr.querySelector("td[data-campo='status'] select").value;
+    const pais = tr.querySelector("td[data-campo='pais']").innerText.trim() || "N/A";
+
+    statusCounts[status] = (statusCounts[status] || 0) + 1;
+    paisCounts[pais] = (paisCounts[pais] || 0) + 1;
+  });
+
+  const chartStatus = document.getElementById("chartStatus");
+  const chartCountry = document.getElementById("chartCountry");
+  chartStatus.innerHTML = "";
+  chartCountry.innerHTML = "";
+
+  const maxStatus = Math.max(1, ...Object.values(statusCounts));
+  const maxPais = Math.max(1, ...Object.values(paisCounts));
+
+  Object.entries(statusCounts).forEach(([status, count]) => {
+    const row = document.createElement("div");
+    row.className = "chart-bar";
+    const label = document.createElement("div");
+    label.className = "chart-label";
+    label.innerText = status;
+    const track = document.createElement("div");
+    track.className = "chart-track";
+    const fill = document.createElement("div");
+    fill.className = "chart-fill status-" + status;
+    fill.style.width = (count / maxStatus * 100) + "%";
+    track.appendChild(fill);
+    row.appendChild(label);
+    row.appendChild(track);
+    chartStatus.appendChild(row);
+  });
+
+  Object.entries(paisCounts).forEach(([pais, count]) => {
+    const row = document.createElement("div");
+    row.className = "chart-bar";
+    const label = document.createElement("div");
+    label.className = "chart-label";
+    label.innerText = pais;
+    const track = document.createElement("div");
+    track.className = "chart-track";
+    const fill = document.createElement("div");
+    fill.className = "chart-fill";
+    fill.style.background = "#6366f1";
+    fill.style.width = (count / maxPais * 100) + "%";
+    track.appendChild(fill);
+    row.appendChild(label);
+    row.appendChild(track);
+    chartCountry.appendChild(row);
+  });
+}
+
+/* ========== EXPORTAR / IMPORTAR EXCEL / CSV ========== */
+
+function exportarExcel() {
+  const dados = [];
+  document.querySelectorAll("#linhas tr").forEach(tr => {
+    const linha = [];
+    const campos = ["email","senha","tiktok","pais","status","data","admin","tags","foto"];
+    campos.forEach(campo => {
+      const td = tr.querySelector(`td[data-campo='${campo}']`);
+      if (campo === "status") {
+        linha.push(td.querySelector("select").value);
+      } else if (campo === "foto") {
+        const img = td.querySelector("img");
+        linha.push(img ? img.src : "");
+      } else {
+        linha.push(td.innerText);
+      }
+    });
+    dados.push(linha);
+  });
+
+  const header = ["Email","Senha","@TikTok","País","Status","Criado em","Admin","Tags","Foto"];
+  const ws = XLSX.utils.aoa_to_sheet([header, ...dados]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Planilha");
+  XLSX.writeFile(wb, "planilha-premium.xlsx");
+}
+
+function importarArquivo(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const linhas = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+    document.getElementById("linhas").innerHTML = "";
+    linhas.slice(1).forEach(linha => criarLinha(linha));
+    salvar();
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+/* ========== BACKUP JSON ========== */
+
+function exportarBackup() {
+  const dados = localStorage.getItem("planilhaPRO_data") || "[]";
+  const blob = new Blob([dados], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "planilha-backup.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importarBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    localStorage.setItem("planilhaPRO_data", e.target.result);
+    document.getElementById("linhas").innerHTML = "";
+    carregar();
+  };
+  reader.readAsText(file);
+}
+
+/* ========== INICIALIZAÇÃO ========== */
+
+window.addEventListener("load", () => {
+  carregar();
+  gerarListaPaises();
+  aplicarIdioma();
+});
+</script>
+</body>
+</html>
